@@ -3,7 +3,10 @@ package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericBranchDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
+import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +31,17 @@ public class SellersController {
     @GetMapping("/seller/{sellerId}")
     public ResponseEntity<GetSellerDto> getSeller(@PathVariable Long sellerId)
     {
-        return ResponseEntity.ok(GetSellerDto.fromDomain(getSellersUseCase.getSeller(sellerId)));
+        try
+        {
+            return ResponseEntity.
+                    ok(GetSellerDto.fromDomain(getSellersUseCase.getSeller(sellerId)));
+        }
+        catch (InvalidSellerSearchIdException e)
+        {
+            return ResponseEntity.
+                    status(HttpStatus.NO_CONTENT).
+                    build();
+        }
+
     }
 }

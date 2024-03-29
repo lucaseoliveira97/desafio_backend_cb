@@ -1,6 +1,7 @@
 package github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in;
 
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
+import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.out.FindSellersPort;
 
@@ -20,7 +21,7 @@ public class GetSellersUseCase implements GetSellersPort {
     }
 
     @Override
-    public Seller getSeller(Long id) {
-        return findSellersRepository.findSeller(id).orElseThrow(() -> new RuntimeException("No data!"));
+    public Seller getSeller(Long id) throws InvalidSellerSearchIdException {
+        return findSellersRepository.findSeller(id).orElseThrow(() -> new InvalidSellerSearchIdException(id));
     }
 }
