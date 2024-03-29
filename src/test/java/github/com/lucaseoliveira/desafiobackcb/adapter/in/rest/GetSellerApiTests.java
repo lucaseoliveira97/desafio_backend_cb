@@ -58,7 +58,7 @@ public class GetSellerApiTests {
                 "CLT",new Branch(0L, "branch 1", "123", "campinas","sp","CLT",
                 true, null, null)));
         when(getSellersUseCase.getSellers()).thenReturn(sellers);
-        client.get().uri("/sellers/1")
+        client.get().uri("/seller/1")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GetSellersPort{
     List<Seller> getSellers ();
+    Seller getSeller(Long id);
 }

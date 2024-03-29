@@ -18,4 +18,9 @@ public class GetSellersUseCase implements GetSellersPort {
 
         return findSellersRepository.findSellers();
     }
+
+    @Override
+    public Seller getSeller(Long id) {
+        return findSellersRepository.findSeller(id).orElseThrow(() -> new RuntimeException("No data!"));
+    }
 }
