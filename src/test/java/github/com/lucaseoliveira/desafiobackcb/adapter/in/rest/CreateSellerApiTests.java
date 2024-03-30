@@ -29,7 +29,6 @@ public class CreateSellerApiTests {
     @Test
     public void createSellerSuccess()
     {
-
         CreateSellerDto createSellerDto = new CreateSellerDto("reg", "name",
                 LocalDate.now(), "12312312312", "a@a.com","CLT", null);
         UUID id = UUID.randomUUID();
@@ -40,5 +39,13 @@ public class CreateSellerApiTests {
                 .exchange()
                 .expectHeader().location("/status/"+id.toString())
                 .expectStatus().isCreated();
+    }
+    @Test
+    public void createSellerEmptyBody()
+    {
+        client.post().uri("/seller")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 }
