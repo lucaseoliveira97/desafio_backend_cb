@@ -4,6 +4,7 @@ import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Branch;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
+import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class GetSellerApiTests {
 
     @MockBean
     private GetSellersUseCase getSellersUseCase;
+    @MockBean
+    private DeleteSellerUseCase deleteSellerUseCase;
     @Test
     void getSellersSuccess()
     {
