@@ -1,5 +1,6 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.integration;
 
+import github.com.lucaseoliveira.desafiobackcb.adapter.mapper.SellerMapper;
 import github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.entity.SellerEntity;
 import github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.repository.SellerRepository;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
@@ -14,9 +15,9 @@ public class InsertSellerAdapter  implements InsertSellerPort {
     }
 
     @Override
-    public void createSeller(Seller seller) {
+    public Seller createSeller(Seller seller) {
         SellerEntity sellerEntity = new SellerEntity(seller.registration(), seller.name(), seller.birthDate(),seller.cpfCnpj(),
                 seller.email(),seller.hiringType(), seller.branch().id());
-        sellerRepository.save(sellerEntity);
+        return SellerMapper.toDomain(sellerRepository.save(sellerEntity));
     }
 }

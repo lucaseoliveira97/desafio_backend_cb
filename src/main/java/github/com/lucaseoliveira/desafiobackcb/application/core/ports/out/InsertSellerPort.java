@@ -3,5 +3,5 @@ package github.com.lucaseoliveira.desafiobackcb.application.core.ports.out;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 
 public interface InsertSellerPort {
-    void createSeller(Seller seller);
+    Seller createSeller(Seller seller);
 }

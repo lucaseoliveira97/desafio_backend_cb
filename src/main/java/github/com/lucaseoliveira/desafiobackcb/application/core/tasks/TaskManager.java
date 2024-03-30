@@ -7,25 +7,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TaskManager<T> {
-    private Map<UUID, Status> createdTasks;
+    private Map<UUID, T> createdTasks;
     private ExecutorService es;
-    private enum Status {
-        STARDED,
-        FINISH
-    }
 
     public TaskManager()
     {
-        createdTasks = new HashMap<UUID, Status>();
+        createdTasks = new HashMap<UUID, T>();
         es = Executors.newFixedThreadPool(5);
+    }
+    public T getTask(UUID id)
+    {
+        return createdTasks.get(id);
     }
     public void addTask(UUID id, T task, Runnable thread)
     {
-        createdTasks.put(id, Status.STARDED);
+        createdTasks.put(id, task);
         es.execute(thread);
     }
-    public void finishThread(UUID id)
+    public void updateTask(UUID id,T task)
     {
-        createdTasks.replace(id, Status.FINISH);
+        createdTasks.replace(id, task);
     }
 }

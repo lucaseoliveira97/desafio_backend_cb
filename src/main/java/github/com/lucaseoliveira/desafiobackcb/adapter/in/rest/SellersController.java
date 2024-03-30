@@ -61,4 +61,9 @@ public class SellersController {
 
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, "/status/" + taskId.toString()).build();
     }
+    @GetMapping("/status/{taskId}")
+    public ResponseEntity getCreateSellerStatus(@PathVariable UUID taskId)
+    {
+        return ResponseEntity.ok().body(this.createSellerUseCase.getCreateSellerStatus(taskId));
+    }
 }
