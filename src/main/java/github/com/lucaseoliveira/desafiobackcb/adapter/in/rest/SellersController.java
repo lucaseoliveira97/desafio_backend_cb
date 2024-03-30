@@ -8,11 +8,13 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.Inval
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.CreateSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.DeleteSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class SellersController {
@@ -55,7 +57,8 @@ public class SellersController {
     @PostMapping("/seller")
     public ResponseEntity createSeller(@RequestBody CreateSellerDto seller)
     {
-        createSellerUseCase.createSeller(CreateSellerDto.toDomain(seller));
-        return ResponseEntity.ok().build();
+        UUID taskId = createSellerUseCase.createSeller(CreateSellerDto.toDomain(seller));
+
+        return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, "/status/" + taskId.toString()).build();
     }
 }

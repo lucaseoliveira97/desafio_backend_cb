@@ -12,6 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.time.LocalDate;
+import java.util.UUID;
+
+import static org.mockito.Mockito.when;
 
 @WebFluxTest
 public class CreateSellerApiTests {
@@ -26,12 +29,16 @@ public class CreateSellerApiTests {
     @Test
     public void createSellerSuccess()
     {
+
         CreateSellerDto createSellerDto = new CreateSellerDto("reg", "name",
                 LocalDate.now(), "12312312312", "a@a.com","CLT", null);
+        UUID id = UUID.randomUUID();
+        when(createSellerUseCase.createSeller(CreateSellerDto.toDomain(createSellerDto))).thenReturn(id);
         client.post().uri("/seller")
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(createSellerDto)
                 .exchange()
-                .expectStatus().isOk();
+                .expectHeader().location("/status/"+id.toString())
+                .expectStatus().isCreated();
     }
 }
