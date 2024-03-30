@@ -11,4 +11,8 @@ public record Branch(Long id,
                      boolean active,
                      LocalDateTime registrationDate,
                      LocalDateTime lastUpdate) {
+    public Branch(Long id)
+    {
+        this(id,"","","","","",false,null,null);
+    }
 }
