@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.rmi.server.UID;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class BranchEntity {
     LocalDateTime lastUpdate;
     @OneToMany(mappedBy="branch")
     private List<SellerEntity> sellers;
+    public BranchEntity(Long id)
+    {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.rmi.server.UID;
 import java.time.LocalDate;
 
 
@@ -20,6 +21,7 @@ public class SellerEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String registration;
     @Column(nullable = false)
     private String name;
@@ -34,6 +36,16 @@ public class SellerEntity {
     @JoinColumn(name = "branch_id")
     private BranchEntity branch;
 
+    public SellerEntity(String registration, String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
+    {
+        this.registration = registration;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.cpfCnpj = cpfCnpj;
+        this.email = email;
+        this.hiringType = hiringType;
+        this.branch = new BranchEntity(branchId);
+    }
     public void setId(Long id) {this.id = id;}
 
     public Long getId() {
