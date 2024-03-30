@@ -48,4 +48,13 @@ public class CreateSellerApiTests {
                 .exchange()
                 .expectStatus().isBadRequest();
     }
+    @Test
+    public void statusCreateSeller()
+    {
+        UUID id = UUID.randomUUID();
+        client.get().uri("/status/" + id.toString())
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk();
+    }
 }
