@@ -4,10 +4,11 @@ import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericBranch
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
+import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.DeleteSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +20,10 @@ import java.util.List;
 public class SellersController {
 
     GetSellersPort getSellersUseCase;
-    public SellersController(GetSellersPort getSellersUseCase) {
+    DeleteSellerPort deleteSellerUseCase;
+    public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase) {
         this.getSellersUseCase = getSellersUseCase;
+        this.deleteSellerUseCase = deleteSellerUseCase;
     }
     @GetMapping("/sellers")
     public List<GetSellerDto> getSellers()
@@ -42,6 +45,11 @@ public class SellersController {
                     status(HttpStatus.NO_CONTENT).
                     build();
         }
-
+    }
+    @DeleteMapping("/seller/{sellerId}")
+    public ResponseEntity deleteSeller(@PathVariable Long sellerId)
+    {
+        deleteSellerUseCase.removeSeller(sellerId);
+        return ResponseEntity.ok().build();
     }
 }

@@ -34,6 +34,8 @@ public class SellerEntity {
     @JoinColumn(name = "branch_id")
     private BranchEntity branch;
 
+    public void setId(Long id) {this.id = id;}
+
     public Long getId() {
         return id;
     }
