@@ -1,19 +1,17 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
+import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericBranchDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
+import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.CreateSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.DeleteSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,9 +19,11 @@ public class SellersController {
 
     GetSellersPort getSellersUseCase;
     DeleteSellerPort deleteSellerUseCase;
-    public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase) {
+    CreateSellerPort createSellerUseCase;
+    public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase,CreateSellerPort createSellerUseCase) {
         this.getSellersUseCase = getSellersUseCase;
         this.deleteSellerUseCase = deleteSellerUseCase;
+        this.createSellerUseCase = createSellerUseCase;
     }
     @GetMapping("/sellers")
     public List<GetSellerDto> getSellers()
@@ -50,6 +50,12 @@ public class SellersController {
     public ResponseEntity deleteSeller(@PathVariable Long sellerId)
     {
         deleteSellerUseCase.removeSeller(sellerId);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/seller")
+    public ResponseEntity createSeller(@RequestBody CreateSellerDto seller)
+    {
+        createSellerUseCase.createSeller(CreateSellerDto.toDomain(seller));
         return ResponseEntity.ok().build();
     }
 }
