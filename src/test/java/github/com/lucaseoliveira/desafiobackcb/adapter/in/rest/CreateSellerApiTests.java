@@ -1,9 +1,6 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
-import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
-import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Branch;
-import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
-import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
+import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.CreateSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
@@ -14,14 +11,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import java.time.LocalDate;
 
 @WebFluxTest
-public class DeleteSellerApiTests {
+public class CreateSellerApiTests {
     @Autowired
     WebTestClient client;
     @MockBean
@@ -31,11 +24,14 @@ public class DeleteSellerApiTests {
     @MockBean
     private CreateSellerUseCase createSellerUseCase;
     @Test
-    void deleteSellerSuccess() {
-        client.delete().uri("/seller/1")
+    public void createSellerSuccess()
+    {
+        CreateSellerDto createSellerDto = new CreateSellerDto("reg", "name",
+                LocalDate.now(), "12312312312", "a@a.com","CLT", null);
+        client.post().uri("/seller")
                 .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(createSellerDto)
                 .exchange()
                 .expectStatus().isOk();
-
     }
 }
