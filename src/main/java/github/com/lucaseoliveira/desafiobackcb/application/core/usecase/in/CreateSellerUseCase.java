@@ -27,8 +27,21 @@ public class CreateSellerUseCase implements CreateSellerPort {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Seller createdSeller = insertSellerRepository.createSeller(sellerTask.seller());
-            createTaskManager.updateTask(id, sellerTask);
+            try {
+                if(sellerTask.getSeller().validate())
+                {
+                    Seller createdSeller = insertSellerRepository.createSeller(sellerTask.getSeller());
+                    sellerTask.setSeller(createdSeller);
+                    sellerTask.setStatus(SellerTask.TaskStatus.COMPLETED);
+                    createTaskManager.updateTask(id, sellerTask);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                sellerTask.setMessage(e.getMessage());
+                sellerTask.setStatus(SellerTask.TaskStatus.ERROR);
+                createTaskManager.updateTask(id, sellerTask);
+            }
+
             System.out.println("Finalizando thread");
         });
         return id;
