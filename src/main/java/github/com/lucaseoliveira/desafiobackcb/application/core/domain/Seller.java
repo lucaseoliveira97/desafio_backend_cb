@@ -19,12 +19,13 @@ public record Seller(Long id,
     public boolean validate() throws Exception {
         RegistrationValidator registrationValidator = new RegistrationValidator();
         RequiredValidator requiredValidator = new RequiredValidator();
-            //registrationValidator.validate(this.registration);
             requiredValidator.validate(this.registration, "registration");
             requiredValidator.validate(this.name, "name");
             requiredValidator.validate(this.cpfCnpj, "cpfCnpj");
             requiredValidator.validate(this.email, "email");
             requiredValidator.validate(this.hiringType, "hiringType");
+
+            registrationValidator.validate(this.registration, "registration");
             return true;
 
     }
