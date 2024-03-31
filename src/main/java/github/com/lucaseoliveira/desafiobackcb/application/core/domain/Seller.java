@@ -1,10 +1,7 @@
 package github.com.lucaseoliveira.desafiobackcb.application.core.domain;
 
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.RequiredFieldException;
-import github.com.lucaseoliveira.desafiobackcb.application.core.validators.HiringTypeValidator;
-import github.com.lucaseoliveira.desafiobackcb.application.core.validators.RegistrationValidator;
-import github.com.lucaseoliveira.desafiobackcb.application.core.validators.RequiredValidator;
-import github.com.lucaseoliveira.desafiobackcb.application.core.validators.Validator;
+import github.com.lucaseoliveira.desafiobackcb.application.core.validators.*;
 
 import java.time.LocalDate;
 
@@ -22,6 +19,8 @@ public record Seller(Long id,
         RegistrationValidator registrationValidator = new RegistrationValidator();
         RequiredValidator requiredValidator = new RequiredValidator();
         HiringTypeValidator hiringTypeValidator = new HiringTypeValidator();
+        CpfCnpjValidator cpfCnpjValidator = new CpfCnpjValidator();
+
         requiredValidator.validate(this.registration, "registration");
         requiredValidator.validate(this.name, "name");
         requiredValidator.validate(this.cpfCnpj, "cpfCnpj");
@@ -30,6 +29,7 @@ public record Seller(Long id,
 
         registrationValidator.validate(this.registration, "registration");
         hiringTypeValidator.validate(this.hiringType, "hiringType");
+        cpfCnpjValidator.validate(this.cpfCnpj,"cpfCnpj");
         return true;
 
     }
