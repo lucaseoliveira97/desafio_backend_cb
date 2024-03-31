@@ -4,6 +4,9 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.Inval
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.RequiredFieldException;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SellerTests {
@@ -86,4 +89,40 @@ public class SellerTests {
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
 
+    @Test
+    void createSuccessSellerRegistrationWithInvalidDate() throws Exception {
+
+        assertThrows(DateTimeParseException.class, ()->{
+            Seller seller = new Seller(1L, "93767367-AC", "name1", LocalDate.parse("10/10/2023"),"123","a@a.com","CLT",
+                    new Branch(1L));
+        });
+    }
+
+    @Test
+    void createSuccessSellerRegistrationWithErrorHiringType() throws Exception {
+        Seller seller = new Seller(1L, "93767367-AC", "name1", null,"123","a@a.com","tipo",
+                new Branch(1L));
+        assertThrows(InvalidFieldExpection.class, seller::validate);
+    }
+    @Test
+    void createSuccessSellerHiringTypeOut() throws Exception {
+        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"123","a@a.com","Outsourcing",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+    @Test
+    void createSuccessSellerHiringTypePj() throws Exception {
+        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"123","a@a.com","Pessoa Juridica",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+    @Test
+    void createSuccessSellerHiringTypeClt() throws Exception {
+        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"123","a@a.com","CLT",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
 }
