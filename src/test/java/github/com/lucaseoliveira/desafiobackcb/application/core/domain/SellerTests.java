@@ -1,5 +1,6 @@
 package github.com.lucaseoliveira.desafiobackcb.application.core.domain;
 
+import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.CpfCnjpHiringTypeInconsistencyExpection;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidFieldExpection;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.RequiredFieldException;
 import org.junit.jupiter.api.Test;
@@ -113,7 +114,7 @@ public class SellerTests {
     }
     @Test
     void createSuccessSellerHiringTypePj() throws Exception {
-        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"662.884.470-64","a@a.com","Pessoa Juridica",
+        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"26.378.500/0001-55","a@a.com","Pessoa Juridica",
                 new Branch(1L));
         boolean isValid = seller.validate();
         assertTrue(isValid);
@@ -135,7 +136,7 @@ public class SellerTests {
     }
     @Test
     void createSuccessSellerValidCnpj() throws Exception {
-        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","a@a.com","CLT",
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","a@a.com","Pessoa Juridica",
                 new Branch(1L));
         boolean isValid = seller.validate();
         assertTrue(isValid);
@@ -167,7 +168,7 @@ public class SellerTests {
     }
     @Test
     void createSuccessSellerValidEmail() throws Exception {
-        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","email@a.com","CLT",
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","email@a.com","Pessoa Juridica",
                 new Branch(1L));
         boolean isValid = seller.validate();
         assertTrue(isValid);
@@ -183,5 +184,36 @@ public class SellerTests {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"26.378.500/1001-55","a@acom","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
+    }
+
+    @Test
+    void createSuccessSellerHiringTypeIsPjAndUsingCnpj() throws Exception {
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","a@a.com","Pessoa Juridica",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+
+    @Test
+    void createSuccessSellerHiringTypeIsCltAndUsingCpf() throws Exception {
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64","a@a.com","CLT",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+
+    @Test
+    void createSuccessSellerHiringTypeIsOutAndUsingCpf() throws Exception {
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64","a@a.com","Outsourcing",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+
+    @Test
+    void createSellerErrorHiringTypeIsPjAndUsingCpf() {
+        Seller seller = new Seller(1L, "93767367-PJ", "name1", null,"662.884.470-64","a@a.com","Pessoa Juridica",
+                new Branch(1L));
+        assertThrows(CpfCnjpHiringTypeInconsistencyExpection.class, seller::validate);
     }
 }
