@@ -5,8 +5,7 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 
 import java.time.LocalDate;
 
-public record CreateSellerDto(String registration,
-                              String name,
+public record CreateSellerDto(String name,
                               LocalDate birthDate,
                               String cpfCnpj,
                               String email,
@@ -15,7 +14,7 @@ public record CreateSellerDto(String registration,
 
     static public Seller toDomain(CreateSellerDto createSellerDto)
     {
-        return new Seller(null, createSellerDto.registration,createSellerDto.name,createSellerDto.birthDate,createSellerDto.cpfCnpj,
+        return new Seller(null, null,createSellerDto.name,createSellerDto.birthDate,createSellerDto.cpfCnpj,
                 createSellerDto.email,createSellerDto.hiringType,new Branch(createSellerDto.branchId));
     }
 }

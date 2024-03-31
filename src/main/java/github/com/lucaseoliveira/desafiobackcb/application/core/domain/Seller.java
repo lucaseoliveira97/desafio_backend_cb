@@ -7,29 +7,42 @@ import java.util.HashMap;
 
 
 public record Seller(Long id,
-                     String registration,
+                     String taskId,
                      String name,
                      LocalDate birthDate,
                      String cpfCnpj,
                      String email,
                      String hiringType,
                      Branch branch) {
+    public String getId()
+    {
+        String normalizedItem = this.hiringType.replace(" ", "_").toUpperCase();
+        String sufix = "";
+        for (HiringType c : HiringType.values()) {
+            if (c.name().equals(normalizedItem)) {
+                sufix = c.getAbbr();
+                break;
+            }
+        }
+
+        return id.toString() + "-" + sufix;
+    }
+    public Seller setTaskId(String taskId) {
+        return new Seller(id(),taskId,name(),birthDate(),cpfCnpj(),email(),hiringType(),branch());
+    }
     public boolean validate() throws Exception {
 
-        RegistrationValidator registrationValidator = new RegistrationValidator();
         RequiredValidator requiredValidator = new RequiredValidator();
         HiringTypeValidator hiringTypeValidator = new HiringTypeValidator();
         CpfCnpjValidator cpfCnpjValidator = new CpfCnpjValidator();
         EmailValidator emailValidator = new EmailValidator();
         CpfCnjpHiringTypeValidator cpfCnjpHiringTypeValidator = new CpfCnjpHiringTypeValidator();
 
-        requiredValidator.validate(this.registration, "registration");
         requiredValidator.validate(this.name, "name");
         requiredValidator.validate(this.cpfCnpj, "cpfCnpj");
         requiredValidator.validate(this.email, "email");
         requiredValidator.validate(this.hiringType, "hiringType");
 
-        registrationValidator.validate(this.registration, "registration");
         hiringTypeValidator.validate(this.hiringType, "hiringType");
         cpfCnpjValidator.validate(this.cpfCnpj,"cpfCnpj");
         emailValidator.validate(this.email, "email");

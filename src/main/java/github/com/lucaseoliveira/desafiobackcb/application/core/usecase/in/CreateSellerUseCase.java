@@ -19,11 +19,12 @@ public class CreateSellerUseCase implements CreateSellerPort {
     @Override
     public UUID createSeller(Seller seller) {
         UUID id = UUID.randomUUID();
+        seller = seller.setTaskId(id.toString());
         SellerTask sellerTask = new SellerTask(id, seller, SellerTask.TaskStatus.STARTED);
         createTaskManager.addTask(id, sellerTask, ()->{
             System.out.println("Iniciando thread");
             try {
-                Thread.sleep(10000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

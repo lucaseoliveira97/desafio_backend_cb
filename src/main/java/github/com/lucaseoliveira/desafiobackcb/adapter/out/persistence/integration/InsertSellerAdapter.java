@@ -16,7 +16,7 @@ public class InsertSellerAdapter  implements InsertSellerPort {
 
     @Override
     public Seller createSeller(Seller seller) {
-        SellerEntity sellerEntity = new SellerEntity(seller.registration(), seller.name(), seller.birthDate(),seller.cpfCnpj(),
+        SellerEntity sellerEntity = new SellerEntity(seller.taskId(), seller.name(), seller.birthDate(),seller.cpfCnpj(),
                 seller.email(),seller.hiringType(), seller.branch().id());
         return SellerMapper.toDomain(sellerRepository.save(sellerEntity));
     }

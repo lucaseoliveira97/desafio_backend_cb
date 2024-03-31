@@ -22,7 +22,7 @@ public class SellerEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String registration;
+    private String taskId;
     @Column(nullable = false)
     private String name;
     private LocalDate birthDate;
@@ -36,9 +36,9 @@ public class SellerEntity {
     @JoinColumn(name = "branch_id")
     private BranchEntity branch;
 
-    public SellerEntity(String registration, String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
+    public SellerEntity(String taskId, String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
     {
-        this.registration = registration;
+        this.taskId = taskId;
         this.name = name;
         this.birthDate = birthDate;
         this.cpfCnpj = cpfCnpj;
@@ -52,8 +52,8 @@ public class SellerEntity {
         return id;
     }
 
-    public String getRegistration() {
-        return registration;
+    public String getTaskId() {
+        return taskId;
     }
 
     public String getName() {

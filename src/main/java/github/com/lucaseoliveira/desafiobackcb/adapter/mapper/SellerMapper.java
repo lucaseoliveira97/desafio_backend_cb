@@ -9,7 +9,7 @@ public class SellerMapper {
     static public Seller toDomain(SellerEntity sellerEntity)
     {
         BranchEntity branchEntity = sellerEntity.getBranch();
-        return new Seller(sellerEntity.getId(),sellerEntity.getRegistration(),sellerEntity.getName(), sellerEntity.getBirthDate(),
+        return new Seller(sellerEntity.getId(),sellerEntity.getTaskId(),sellerEntity.getName(), sellerEntity.getBirthDate(),
                 sellerEntity.getCpfCnpj(), sellerEntity.getEmail(), sellerEntity.getHiringType(),
                 new Branch(branchEntity.getId(), branchEntity.getName(),branchEntity.getCnpj(),branchEntity.getCity(),
                         branchEntity.getUf(),branchEntity.getType(), branchEntity.isActive(), branchEntity.getRegistrationDate(),

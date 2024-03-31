@@ -1,6 +1,8 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
+import github.com.lucaseoliveira.desafiobackcb.application.core.domain.SellerTask;
+import github.com.lucaseoliveira.desafiobackcb.application.core.tasks.TaskManager;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.CreateSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
@@ -14,7 +16,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @WebFluxTest
 public class CreateSellerApiTests {
@@ -26,13 +28,16 @@ public class CreateSellerApiTests {
     private DeleteSellerUseCase deleteSellerUseCase;
     @MockBean
     private CreateSellerUseCase createSellerUseCase;
+    @MockBean
+    TaskManager<SellerTask> createTaskManager;
     @Test
     public void createSellerSuccess()
     {
-        CreateSellerDto createSellerDto = new CreateSellerDto("reg", "name",
+        CreateSellerDto createSellerDto = new CreateSellerDto( "name",
                 LocalDate.now(), "12312312312", "a@a.com","CLT", null);
         UUID id = UUID.randomUUID();
         when(createSellerUseCase.createSeller(CreateSellerDto.toDomain(createSellerDto))).thenReturn(id);
+
         client.post().uri("/seller")
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(createSellerDto)

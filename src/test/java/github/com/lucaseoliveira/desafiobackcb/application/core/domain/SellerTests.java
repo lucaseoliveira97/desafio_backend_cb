@@ -20,12 +20,6 @@ public class SellerTests {
         assertTrue(isValid);
     }
 
-    @Test
-    void createSuccessSellerWithoutRegistration()  {
-        Seller seller = new Seller(1L, null, "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        assertThrows(RequiredFieldException.class, seller::validate);
-    }
 
     @Test
     void createSuccessSellerWithoutName()  {
@@ -53,41 +47,6 @@ public class SellerTests {
         Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64","a@a.com",null,
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
-    }
-    @Test
-    void createSuccessSellerRegistrationOut() throws Exception {
-        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        boolean isValid = seller.validate();
-        assertTrue(isValid);
-    }
-    @Test
-    void createSuccessSellerRegistrationClt() throws Exception {
-        Seller seller = new Seller(1L, "98767367-CLT", "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        boolean isValid = seller.validate();
-        assertTrue(isValid);
-    }
-    @Test
-    void createSuccessSellerRegistrationPj() throws Exception {
-        Seller seller = new Seller(1L, "98767367-PJ", "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        boolean isValid = seller.validate();
-        assertTrue(isValid);
-    }
-
-    @Test
-    void createSuccessSellerRegistrationWithLetters()  {
-        Seller seller = new Seller(1L, "9A767367-PJ", "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        assertThrows(InvalidFieldExpection.class, seller::validate);
-    }
-
-    @Test
-    void createSuccessSellerRegistrationWithAnotherTermination()  {
-        Seller seller = new Seller(1L, "93767367-AC", "name1", null,"662.884.470-64","a@a.com","CLT",
-                new Branch(1L));
-        assertThrows(InvalidFieldExpection.class, seller::validate);
     }
 
     @Test
