@@ -2,6 +2,7 @@ package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericBranchDto;
+import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericResponseDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,14 +54,15 @@ public class SellersController {
     public ResponseEntity deleteSeller(@PathVariable Long sellerId)
     {
         deleteSellerUseCase.removeSeller(sellerId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(new GenericResponseDto(HttpStatus.OK.name()));
     }
     @PostMapping("/seller")
     public ResponseEntity createSeller(@RequestBody CreateSellerDto seller)
     {
         UUID taskId = createSellerUseCase.createSeller(CreateSellerDto.toDomain(seller));
-
-        return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, "/status/" + taskId.toString()).build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header(HttpHeaders.LOCATION, "/status/" + taskId.toString())
+                .body(new GenericResponseDto(HttpStatus.CREATED.name()));
     }
     @GetMapping("/status/{taskId}")
     public ResponseEntity getCreateSellerStatus(@PathVariable UUID taskId)
