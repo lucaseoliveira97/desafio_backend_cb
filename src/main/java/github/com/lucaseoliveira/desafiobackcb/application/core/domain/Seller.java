@@ -1,9 +1,9 @@
 package github.com.lucaseoliveira.desafiobackcb.application.core.domain;
 
-import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.RequiredFieldException;
 import github.com.lucaseoliveira.desafiobackcb.application.core.validators.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 
 public record Seller(Long id,
@@ -21,6 +21,7 @@ public record Seller(Long id,
         HiringTypeValidator hiringTypeValidator = new HiringTypeValidator();
         CpfCnpjValidator cpfCnpjValidator = new CpfCnpjValidator();
         EmailValidator emailValidator = new EmailValidator();
+        CpfCnjpHiringTypeValidator cpfCnjpHiringTypeValidator = new CpfCnjpHiringTypeValidator();
 
         requiredValidator.validate(this.registration, "registration");
         requiredValidator.validate(this.name, "name");
@@ -32,6 +33,13 @@ public record Seller(Long id,
         hiringTypeValidator.validate(this.hiringType, "hiringType");
         cpfCnpjValidator.validate(this.cpfCnpj,"cpfCnpj");
         emailValidator.validate(this.email, "email");
+
+        HashMap<String,String> hiringTypeCpfCnpj = new HashMap<>();
+        hiringTypeCpfCnpj.put("hiringType", this.hiringType);
+        hiringTypeCpfCnpj.put("cpfCnpj", this.cpfCnpj);
+        cpfCnjpHiringTypeValidator.validate(hiringTypeCpfCnpj,"hiringType");
+
+
         return true;
 
     }

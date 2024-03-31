@@ -45,7 +45,7 @@ public class CpfCnpjValidator implements  Validator<String>{
         return cpf.equals(cpf.substring(0,9) + digito1.toString() + digito2.toString());
     }
 
-    private boolean isValidCNPJ(String cnpj) {
+    public boolean isValidCNPJ(String cnpj) {
         cnpj = cnpj.trim().replace(".", "").replace("-", "").replace("/", "");
         if ((cnpj == null)||(cnpj.length()!=14) || !cnpj.matches("[0-9]+")) return false;
 
