@@ -20,6 +20,7 @@ public record Seller(Long id,
         RequiredValidator requiredValidator = new RequiredValidator();
         HiringTypeValidator hiringTypeValidator = new HiringTypeValidator();
         CpfCnpjValidator cpfCnpjValidator = new CpfCnpjValidator();
+        EmailValidator emailValidator = new EmailValidator();
 
         requiredValidator.validate(this.registration, "registration");
         requiredValidator.validate(this.name, "name");
@@ -30,6 +31,7 @@ public record Seller(Long id,
         registrationValidator.validate(this.registration, "registration");
         hiringTypeValidator.validate(this.hiringType, "hiringType");
         cpfCnpjValidator.validate(this.cpfCnpj,"cpfCnpj");
+        emailValidator.validate(this.email, "email");
         return true;
 
     }
