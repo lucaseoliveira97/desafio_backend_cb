@@ -20,35 +20,35 @@ public class SellerTests {
     }
 
     @Test
-    void createSuccessSellerWithoutRegistration() throws Exception {
+    void createSuccessSellerWithoutRegistration()  {
         Seller seller = new Seller(1L, null, "name1", null,"662.884.470-64","a@a.com","CLT",
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerWithoutName() throws Exception {
+    void createSuccessSellerWithoutName()  {
         Seller seller = new Seller(1L, "98767367-OUT", null, null,"662.884.470-64","a@a.com","CLT",
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerWithoutCpfCnpj() throws Exception {
+    void createSuccessSellerWithoutCpfCnpj()  {
         Seller seller = new Seller(1L, "98767367-OUT", "name1", null,null,"a@a.com","CLT",
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerWithoutEmail() throws Exception {
+    void createSuccessSellerWithoutEmail() {
         Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64",null,"CLT",
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerWithoutHiringType() throws Exception {
+    void createSuccessSellerWithoutHiringType() {
         Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"662.884.470-64","a@a.com",null,
                 new Branch(1L));
         assertThrows(RequiredFieldException.class, seller::validate);
@@ -76,30 +76,30 @@ public class SellerTests {
     }
 
     @Test
-    void createSuccessSellerRegistrationWithLetters() throws Exception {
+    void createSuccessSellerRegistrationWithLetters()  {
         Seller seller = new Seller(1L, "9A767367-PJ", "name1", null,"662.884.470-64","a@a.com","CLT",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerRegistrationWithAnotherTermination() throws Exception {
+    void createSuccessSellerRegistrationWithAnotherTermination()  {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"662.884.470-64","a@a.com","CLT",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerRegistrationWithInvalidDate() throws Exception {
+    void createSuccessSellerRegistrationWithInvalidDate()  {
 
         assertThrows(DateTimeParseException.class, ()->{
-            Seller seller = new Seller(1L, "93767367-AC", "name1", LocalDate.parse("10/10/2023"),"662.884.470-64","a@a.com","CLT",
+            new Seller(1L, "93767367-AC", "name1", LocalDate.parse("10/10/2023"),"662.884.470-64","a@a.com","CLT",
                     new Branch(1L));
         });
     }
 
     @Test
-    void createSuccessSellerRegistrationWithErrorHiringType() throws Exception {
+    void createSuccessSellerRegistrationWithErrorHiringType() {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"662.884.470-64","a@a.com","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
@@ -141,27 +141,46 @@ public class SellerTests {
         assertTrue(isValid);
     }
     @Test
-    void createSuccessSellerRegistrationWithInvalidCpf() throws Exception {
+    void createSuccessSellerRegistrationWithInvalidCpf()  {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"612.884.470-64","a@a.com","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
     @Test
-    void createSuccessSellerRegistrationWithInvalidCpfWithAlphabetic() throws Exception {
+    void createSuccessSellerRegistrationWithInvalidCpfWithAlphabetic()  {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"A12.884.470-64","a@a.com","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
 
     @Test
-    void createSuccessSellerRegistrationWithInvalidCnpj() throws Exception {
+    void createSuccessSellerRegistrationWithInvalidCnpj()  {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"26.378.500/1001-55","a@a.com","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
     @Test
-    void createSuccessSellerRegistrationWithInvalidCnpjWithAlphabetic() throws Exception {
+    void createSuccessSellerRegistrationWithInvalidCnpjWithAlphabetic()  {
         Seller seller = new Seller(1L, "93767367-AC", "name1", null,"A6.378.500/1001-55","a@a.com","tipo",
+                new Branch(1L));
+        assertThrows(InvalidFieldExpection.class, seller::validate);
+    }
+    @Test
+    void createSuccessSellerValidEmail() throws Exception {
+        Seller seller = new Seller(1L, "98767367-OUT", "name1", null,"26.378.500/0001-55","email@a.com","CLT",
+                new Branch(1L));
+        boolean isValid = seller.validate();
+        assertTrue(isValid);
+    }
+    @Test
+    void createSuccessSellerRegistrationWithInvalidEmail()  {
+        Seller seller = new Seller(1L, "93767367-AC", "name1", null,"26.378.500/1001-55","a#a.com","tipo",
+                new Branch(1L));
+        assertThrows(InvalidFieldExpection.class, seller::validate);
+    }
+    @Test
+    void createSuccessSellerRegistrationWithInvalidEmailDomain() {
+        Seller seller = new Seller(1L, "93767367-AC", "name1", null,"26.378.500/1001-55","a@acom","tipo",
                 new Branch(1L));
         assertThrows(InvalidFieldExpection.class, seller::validate);
     }
