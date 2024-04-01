@@ -1,5 +1,6 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericResponseDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
@@ -7,6 +8,7 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.Inval
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.CreateSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.DeleteSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
+import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.UpdateSellerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +25,13 @@ public class SellersController {
     GetSellersPort getSellersUseCase;
     DeleteSellerPort deleteSellerUseCase;
     CreateSellerPort createSellerUseCase;
-    public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase,CreateSellerPort createSellerUseCase) {
+    UpdateSellerPort updateSellerPort;
+    public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase,
+                             CreateSellerPort createSellerUseCase, UpdateSellerPort updateSellerPort) {
         this.getSellersUseCase = getSellersUseCase;
         this.deleteSellerUseCase = deleteSellerUseCase;
         this.createSellerUseCase = createSellerUseCase;
+        this.updateSellerPort = updateSellerPort;
     }
     @GetMapping("/sellers")
     public List<GetSellerDto> getSellers()
@@ -63,9 +68,16 @@ public class SellersController {
                 .header(HttpHeaders.LOCATION, "/status/" + taskId.toString())
                 .body(new GenericResponseDto(HttpStatus.CREATED.name()));
     }
+
     @GetMapping("/status/{taskId}")
     public ResponseEntity getCreateSellerStatus(@PathVariable UUID taskId)
     {
         return ResponseEntity.ok().body(GetCreateSellerStatusDto.fromDomain(this.createSellerUseCase.getCreateSellerStatus(taskId)));
+    }
+
+    @PutMapping("/seller/{sellerId}")
+    public ResponseEntity updateSeller(@PathVariable Long sellerId,@RequestBody CreateSellerDto seller) throws Exception {
+        updateSellerPort.updateSeller(sellerId,CreateSellerDto.toDomain(seller));
+        return ResponseEntity.ok().body(new GenericResponseDto(HttpStatus.OK.name()));
     }
 }
