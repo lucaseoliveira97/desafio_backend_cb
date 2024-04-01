@@ -7,7 +7,6 @@ import java.util.HashMap;
 
 
 public record Seller(Long id,
-                     String taskId,
                      String name,
                      LocalDate birthDate,
                      String cpfCnpj,
@@ -26,9 +25,6 @@ public record Seller(Long id,
         }
 
         return id.toString() + "-" + sufix;
-    }
-    public Seller setTaskId(String taskId) {
-        return new Seller(id(),taskId,name(),birthDate(),cpfCnpj(),email(),hiringType(),branch());
     }
     public boolean validate() throws Exception {
 

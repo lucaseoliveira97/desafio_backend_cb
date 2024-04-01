@@ -22,8 +22,6 @@ public class SellerEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String taskId;
-    @Column(nullable = false)
     private String name;
     private LocalDate birthDate;
     @Column(nullable = false)
@@ -36,9 +34,19 @@ public class SellerEntity {
     @JoinColumn(name = "branch_id")
     private BranchEntity branch;
 
-    public SellerEntity(String taskId, String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
+    public SellerEntity(String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
     {
-        this.taskId = taskId;
+
+        this.name = name;
+        this.birthDate = birthDate;
+        this.cpfCnpj = cpfCnpj;
+        this.email = email;
+        this.hiringType = hiringType;
+        this.branch = new BranchEntity(branchId);
+    }
+    public SellerEntity(Long id,  String name, LocalDate birthDate,String cpfCnpj, String email, String hiringType, Long branchId)
+    {
+        this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.cpfCnpj = cpfCnpj;
@@ -50,10 +58,6 @@ public class SellerEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public String getTaskId() {
-        return taskId;
     }
 
     public String getName() {

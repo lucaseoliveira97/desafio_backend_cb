@@ -14,7 +14,7 @@ public record CreateSellerDto(String name,
 
     static public Seller toDomain(CreateSellerDto createSellerDto)
     {
-        return new Seller(null, null,createSellerDto.name,createSellerDto.birthDate,createSellerDto.cpfCnpj,
+        return new Seller(null,createSellerDto.name,createSellerDto.birthDate,createSellerDto.cpfCnpj,
                 createSellerDto.email,createSellerDto.hiringType,new Branch(createSellerDto.branchId));
     }
 }
