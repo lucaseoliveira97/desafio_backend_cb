@@ -13,12 +13,11 @@ public class UpdateSellerUseCase implements UpdateSellerPort {
     }
 
     @Override
-    public Seller updateSeller(Long id, Seller seller) throws Exception {
+    public int updateSeller(Long id, Seller seller) throws Exception {
         if(seller.validate())
         {
             return updateSellerAdaper.updateSeller(id, seller);
         }
-        return null;
-
+        return 0;
     }
 }

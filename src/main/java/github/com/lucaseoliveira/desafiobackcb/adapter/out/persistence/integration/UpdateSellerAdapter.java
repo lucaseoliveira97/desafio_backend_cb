@@ -24,15 +24,13 @@ public class UpdateSellerAdapter implements UpdateSellerOutPort {
 
     @Override
     @Transactional
-    public Seller updateSeller(Long id, Seller seller) {
+    public int updateSeller(Long id, Seller seller) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaUpdate<SellerEntity> criteriaUpdate = cb.createCriteriaUpdate(SellerEntity.class);
         Root<SellerEntity> root = criteriaUpdate.from(SellerEntity.class);
         criteriaUpdate.set("name", seller.name());
         criteriaUpdate.where(cb.equal(root.get("id"), id));
 
-        int i = entityManager.createQuery(criteriaUpdate).executeUpdate();
-
-        return null;
+       return entityManager.createQuery(criteriaUpdate).executeUpdate();
     }
 }

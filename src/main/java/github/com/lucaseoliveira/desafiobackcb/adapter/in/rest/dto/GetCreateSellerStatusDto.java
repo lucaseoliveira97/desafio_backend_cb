@@ -7,6 +7,10 @@ import java.util.UUID;
 public record GetCreateSellerStatusDto(SellerTask.TaskStatus status, String message, UUID id, Long sellerId) {
     public static GetCreateSellerStatusDto fromDomain(SellerTask sellerTask)
     {
-        return new GetCreateSellerStatusDto(sellerTask.getStatus(),sellerTask.getMessage(), sellerTask.getId(),sellerTask.getSeller().id());
+        if(sellerTask != null)
+        {
+            return new GetCreateSellerStatusDto(sellerTask.getStatus(),sellerTask.getMessage(), sellerTask.getId(),sellerTask.getSeller().id());
+        }
+        return null;
     }
 }
