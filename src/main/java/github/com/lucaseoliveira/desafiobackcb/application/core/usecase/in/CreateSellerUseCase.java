@@ -2,6 +2,7 @@ package github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in;
 
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.SellerTask;
+import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.SellerTaskNotFoundExpection;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.CreateSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.out.InsertSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.tasks.TaskManager;
@@ -45,7 +46,12 @@ public class CreateSellerUseCase implements CreateSellerPort {
     }
 
     @Override
-    public SellerTask getCreateSellerStatus(UUID taskId) {
-        return createTaskManager.getTask(taskId);
+    public SellerTask getCreateSellerStatus(UUID taskId) throws SellerTaskNotFoundExpection {
+        SellerTask task = createTaskManager.getTask(taskId);
+        if(task != null)
+        {
+            return task;
+        }
+        throw new SellerTaskNotFoundExpection(taskId);
     }
 }
