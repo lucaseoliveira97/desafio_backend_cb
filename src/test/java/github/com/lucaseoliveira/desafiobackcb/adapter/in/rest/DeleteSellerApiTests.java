@@ -3,6 +3,7 @@ package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.CreateSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
+import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.UpdateSellerUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -20,6 +21,8 @@ public class DeleteSellerApiTests {
     private DeleteSellerUseCase deleteSellerUseCase;
     @MockBean
     private CreateSellerUseCase createSellerUseCase;
+    @MockBean
+    private UpdateSellerUseCase updateSellerUseCase;
     @Test
     void deleteSellerSuccess() {
         client.delete().uri("/seller/1")

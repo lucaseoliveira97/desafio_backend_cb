@@ -7,6 +7,7 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.Inval
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.CreateSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
+import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.UpdateSellerUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -31,6 +32,8 @@ public class GetSellerApiTests {
     private DeleteSellerUseCase deleteSellerUseCase;
     @MockBean
     private CreateSellerUseCase createSellerUseCase;
+    @MockBean
+    private UpdateSellerUseCase updateSellerUseCase;
     @Test
     void getSellersSuccess()
     {
@@ -44,7 +47,7 @@ public class GetSellerApiTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(GetSellerDto.class).hasSize(1)
-                .value(dto -> assertThat(dto.get(0).id()).isEqualTo("1"));
+                .value(dto -> assertThat(dto.get(0).id()).isEqualTo("1-CLT"));
 
     }
     @Test
@@ -70,7 +73,7 @@ public class GetSellerApiTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(GetSellerDto.class)
-                .value(dto -> assertThat(dto.id()).isEqualTo("1"));
+                .value(dto -> assertThat(dto.id()).isEqualTo("1-CLT"));
 
     }
     @Test
