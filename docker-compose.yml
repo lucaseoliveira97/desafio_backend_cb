@@ -5,6 +5,14 @@ networks:
     driver: bridge
 
 services:
+  web:
+    image: desafio-back-cb
+    container_name: 'web'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
   prometheus:
     image: prom/prometheus:v2.44.0
     container_name: prometheus
