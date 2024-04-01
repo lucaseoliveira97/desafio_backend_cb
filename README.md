@@ -157,7 +157,7 @@ Requisições para a API devem seguir os padrões:
             {
             "status": "OK"
             }
-+ Response 5000 (application/json)
++ Response 500 (application/json)
 
     + Body
 
@@ -170,5 +170,11 @@ Requisições para a API devem seguir os padrões:
             }
 
 
-      
-    
+### Deletar vendedor [DELETE /seller/{id}]
++ Parameters
+    + id (required, string) Id do vendedor
++ Response 200 (application/json)
++ 
+        {
+        "status": "OK"
+        }
