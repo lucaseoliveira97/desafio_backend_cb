@@ -4,6 +4,7 @@ import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerD
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericResponseDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.InvalidSellerSearchIdException;
+import github.com.lucaseoliveira.desafiobackcb.application.core.exceptions.SellerTaskNotFoundExpection;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.CreateSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.DeleteSellerPort;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.in.GetSellersPort;
@@ -68,14 +69,13 @@ public class SellersController {
     }
 
     @GetMapping("/status/{taskId}")
-    public ResponseEntity getCreateSellerStatus(@PathVariable UUID taskId)
-    {
+    public ResponseEntity getCreateSellerStatus(@PathVariable UUID taskId) throws SellerTaskNotFoundExpection {
         return ResponseEntity.ok().body(GetCreateSellerStatusDto.fromDomain(this.createSellerUseCase.getCreateSellerStatus(taskId)));
     }
 
     @PutMapping("/seller/{sellerId}")
     public ResponseEntity updateSeller(@PathVariable Long sellerId,@RequestBody CreateSellerDto seller) throws Exception {
-        updateSellerPort.updateSeller(sellerId,CreateSellerDto.toDomain(seller));
-        return ResponseEntity.ok().body(new GenericResponseDto(HttpStatus.OK.name()));
+        int i = updateSellerPort.updateSeller(sellerId,CreateSellerDto.toDomain(seller));
+        return ResponseEntity.ok().body(new GenericResponseDto("[" + i + "] data update"));
     }
 }
