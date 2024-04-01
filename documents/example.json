@@ -1,0 +1,22 @@
+{
+    "registration":"98767367-OUT",
+    "name": "Fulano",
+    "birthDate": "",
+    "cpfCnjp":"123",
+    "email":"a@.com",
+    "hiringType":"CLT",
+    "branch":{
+        "id":123,
+        "name":"Branch",
+        "cnpj":"123",
+        "city":"ABC",
+        "uf":"SP",
+        "type":"tipo",
+        "active":true,
+        "registrationDate":"",
+        "lastUpdate":""
+    }
+}
+
+
+
