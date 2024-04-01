@@ -34,8 +34,8 @@ public class GetSellerApiTests {
     @Test
     void getSellersSuccess()
     {
-        List<Seller> sellers = new ArrayList<Seller>();
-        sellers.add(new Seller(1L,"reg1", "name1", null,"123", "a@a.com",
+        List<Seller> sellers = new ArrayList<>();
+        sellers.add(new Seller(1L,"name1", null,"123", "a@a.com",
                 "CLT",new Branch(0L, "branch 1", "123", "campinas","sp","CLT",
                 true, null, null)));
         when(getSellersUseCase.getSellers()).thenReturn(sellers);
@@ -44,13 +44,13 @@ public class GetSellerApiTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(GetSellerDto.class).hasSize(1)
-                .value(dto -> assertThat(dto.get(0).id()).isEqualTo(1L));
+                .value(dto -> assertThat(dto.get(0).id()).isEqualTo("1"));
 
     }
     @Test
     void getSellersSuccessEmpty()
     {
-        List<Seller> sellers = new ArrayList<Seller>();
+        List<Seller> sellers = new ArrayList<>();
         when(getSellersUseCase.getSellers()).thenReturn(sellers);
         client.get().uri("/sellers")
                 .accept(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ public class GetSellerApiTests {
     }
     @Test
     void getSellerSuccess() throws InvalidSellerSearchIdException {
-        Seller seller =  (new Seller(1L,"reg1", "name1", null,"123", "a@a.com",
+        Seller seller =  (new Seller(1L, "name1", null,"123", "a@a.com",
                 "CLT",new Branch(0L, "branch 1", "123", "campinas","sp","CLT",
                 true, null, null)));
         when(getSellersUseCase.getSeller(1L)).thenReturn(seller);
@@ -70,7 +70,7 @@ public class GetSellerApiTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(GetSellerDto.class)
-                .value(dto -> assertThat(dto.id()).isEqualTo(1L));
+                .value(dto -> assertThat(dto.id()).isEqualTo("1"));
 
     }
     @Test
