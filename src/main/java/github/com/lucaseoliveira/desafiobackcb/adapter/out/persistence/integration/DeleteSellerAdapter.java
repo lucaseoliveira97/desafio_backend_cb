@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteSellerAdapter implements DeleteSellerOutPort {
-    SellerRepository sellerRepository;
+    final SellerRepository sellerRepository;
     public DeleteSellerAdapter(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
     }

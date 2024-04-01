@@ -7,8 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TaskManager<T> {
-    private Map<UUID, T> createdTasks;
-    private ExecutorService es;
+    final private Map<UUID, T> createdTasks;
+    final private ExecutorService es;
 
     public TaskManager()
     {

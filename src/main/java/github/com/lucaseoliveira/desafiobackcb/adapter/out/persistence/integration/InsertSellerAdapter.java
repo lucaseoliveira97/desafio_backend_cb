@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class InsertSellerAdapter  implements InsertSellerPort {
-    SellerRepository sellerRepository;
+    final SellerRepository sellerRepository;
     public InsertSellerAdapter(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
     }

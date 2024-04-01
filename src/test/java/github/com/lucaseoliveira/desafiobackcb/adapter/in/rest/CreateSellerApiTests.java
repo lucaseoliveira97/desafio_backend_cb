@@ -6,6 +6,7 @@ import github.com.lucaseoliveira.desafiobackcb.application.core.tasks.TaskManage
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.CreateSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.DeleteSellerUseCase;
 import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.GetSellersUseCase;
+import github.com.lucaseoliveira.desafiobackcb.application.core.usecase.in.UpdateSellerUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -28,6 +29,8 @@ public class CreateSellerApiTests {
     private DeleteSellerUseCase deleteSellerUseCase;
     @MockBean
     private CreateSellerUseCase createSellerUseCase;
+    @MockBean
+    private UpdateSellerUseCase updateSellerUseCase;
     @MockBean
     TaskManager<SellerTask> createTaskManager;
     @Test

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class CreateSellerUseCase implements CreateSellerPort {
     private final InsertSellerPort insertSellerRepository;
-    private final TaskManager<SellerTask> createTaskManager = new TaskManager<SellerTask>();
+    private final TaskManager<SellerTask> createTaskManager = new TaskManager<>();
 
     public CreateSellerUseCase(InsertSellerPort insertSellerRepository) {
         this.insertSellerRepository = insertSellerRepository;
@@ -21,9 +21,8 @@ public class CreateSellerUseCase implements CreateSellerPort {
         UUID id = UUID.randomUUID();
         SellerTask sellerTask = new SellerTask(id, seller, SellerTask.TaskStatus.STARTED);
         createTaskManager.addTask(id, sellerTask, ()->{
-            System.out.println("Iniciando thread");
             try {
-                Thread.sleep(1);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -36,13 +35,11 @@ public class CreateSellerUseCase implements CreateSellerPort {
                     createTaskManager.updateTask(id, sellerTask);
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
                 sellerTask.setMessage(e.getMessage());
                 sellerTask.setStatus(SellerTask.TaskStatus.ERROR);
                 createTaskManager.updateTask(id, sellerTask);
             }
 
-            System.out.println("Finalizando thread");
         });
         return id;
     }

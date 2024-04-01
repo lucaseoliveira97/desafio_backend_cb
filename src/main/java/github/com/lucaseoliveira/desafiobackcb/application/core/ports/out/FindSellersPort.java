@@ -1,6 +1,5 @@
 package github.com.lucaseoliveira.desafiobackcb.application.core.ports.out;
 
-import github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.entity.SellerEntity;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 
 import java.util.List;

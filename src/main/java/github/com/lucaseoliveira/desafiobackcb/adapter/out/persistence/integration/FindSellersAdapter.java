@@ -1,7 +1,6 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.integration;
 
 import github.com.lucaseoliveira.desafiobackcb.adapter.mapper.SellerMapper;
-import github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.entity.SellerEntity;
 import github.com.lucaseoliveira.desafiobackcb.adapter.out.persistence.repository.SellerRepository;
 import github.com.lucaseoliveira.desafiobackcb.application.core.domain.Seller;
 import github.com.lucaseoliveira.desafiobackcb.application.core.ports.out.FindSellersPort;
@@ -14,7 +13,7 @@ import java.util.stream.StreamSupport;
 
 @Component
 public class FindSellersAdapter implements FindSellersPort {
-    SellerRepository sellerRepository;
+    final SellerRepository sellerRepository;
     public FindSellersAdapter(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
     }

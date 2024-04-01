@@ -1,6 +1,5 @@
 package github.com.lucaseoliveira.desafiobackcb.adapter.in.rest;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.CreateSellerDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GenericResponseDto;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetSellerDto;
@@ -15,17 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import github.com.lucaseoliveira.desafiobackcb.adapter.in.rest.dto.GetCreateSellerStatusDto;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 public class SellersController {
 
-    GetSellersPort getSellersUseCase;
-    DeleteSellerPort deleteSellerUseCase;
-    CreateSellerPort createSellerUseCase;
-    UpdateSellerPort updateSellerPort;
+    final GetSellersPort getSellersUseCase;
+    final DeleteSellerPort deleteSellerUseCase;
+    final CreateSellerPort createSellerUseCase;
+    final UpdateSellerPort updateSellerPort;
     public SellersController(GetSellersPort getSellersUseCase,DeleteSellerPort deleteSellerUseCase,
                              CreateSellerPort createSellerUseCase, UpdateSellerPort updateSellerPort) {
         this.getSellersUseCase = getSellersUseCase;
