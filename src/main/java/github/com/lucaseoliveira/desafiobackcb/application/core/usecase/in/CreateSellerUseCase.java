@@ -22,8 +22,9 @@ public class CreateSellerUseCase implements CreateSellerPort {
         UUID id = UUID.randomUUID();
         SellerTask sellerTask = new SellerTask(id, seller, SellerTask.TaskStatus.STARTED);
         createTaskManager.addTask(id, sellerTask, ()->{
+            // simular a task de status
             try {
-                Thread.sleep(30000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -3,17 +3,17 @@
 Foi utilizado como base a arquitetura hexagonal
 ![Alt text](./documents/arc.png "Optional title")
 
-| Termo | Descrição |
-|----------|-----------|
-| Vendedor | Autorizada |
-| `20` | Ag. retorno |
-| `25` | Ag. cancelamento |
-| `30` | Rejeitada |
-| `40` | Denegada |
-| `90` | Cancelada |
-| `99` | Não enviada |
 
+## Arquitetura
+Utilizado Java 17.
 
+## Como subir
+Utilizar o comando
+```console
+docker compose up --build
+```
+Na endereço http://localhost:8080/ tera acesso aos endpoints.
+No endereço http://localhost:9090/ tera acesso aos dados de observabilidade da api.
 
 ## Métodos
 Requisições para a API devem seguir os padrões:
