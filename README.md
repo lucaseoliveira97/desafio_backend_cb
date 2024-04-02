@@ -52,6 +52,7 @@ Requisições para a API devem seguir os padrões:
 + Parameters
     + id (required, number) Id do vendedor
 + Response 200 (application/json)
++ 
         {
         "id": "1-CLT",
         "name": "Name1",
@@ -92,7 +93,7 @@ Requisições para a API devem seguir os padrões:
     + birthDate (Date, optional)
     + cpfCnpj (string, required)
     + email (string, required)
-    + hiringType (string,required)
+    + hiringType (string,required, options:{"CLT", "Pessoa Juridica", "Outsourcing"})
     + branchId (int, required)
 
 + Request (application/json)
@@ -133,7 +134,7 @@ Requisições para a API devem seguir os padrões:
     + birthDate (Date, optional)
     + cpfCnpj (string, required)
     + email (string, required)
-    + hiringType (string,required)
+    + hiringType (string,required, options:{"CLT", "Pessoa Juridica", "Outsourcing"})
     + branchId (int, required)
 
 + Request (application/json)
