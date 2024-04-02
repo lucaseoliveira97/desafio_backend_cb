@@ -48,7 +48,7 @@ Requisições para a API devem seguir os padrões:
             }
         },...]
 
-### Listar vendedor [GET /sellers/{id}]
+### Listar vendedor [GET /seller/{id}]
 + Parameters
     + id (required, number) Id do vendedor
 + Response 200 (application/json)
@@ -122,7 +122,7 @@ Requisições para a API devem seguir os padrões:
             }
 
 
-### Atualizar vendedor [PUT /seller{id}]
+### Atualizar vendedor [PUT /seller/{id}]
 
 + Parameters
     + id (required, number) Id do vendedor
